@@ -5,9 +5,9 @@ from data import TripStats
 def main():
     student = User("Peter", "Tuen Mun", "Kowloon Tong")
 
-    mtr_route = TransportLine("Tuen Mun Line", "MTR", "Tuen Mun", "Nam Cheong", 30)
-    bus_route = TransportLine("960", "Bus", "Tuen Mun", "Admiralty", 50)
-    minibus_route = TransportLine("44", "Minibus", "Tuen Mun", "Mei Foo", 40)
+    mtr_route = MTRLine("Tuen Mun Line", "MTR", "Tuen Mun", "Nam Cheong", 30)
+    bus_route = BusLine("960", "Bus", "Tuen Mun", "Admiralty", 50, is_express=True)
+    minibus_route = MinibusLine("44", "Minibus", "Tuen Mun", "Mei Foo", 40)
 
     today = datetime.now()
 
@@ -22,10 +22,11 @@ def main():
     trip3.add_delay("Typhoon Signal No. 3 Rain delay", 30)
     student.add_trip(trip3)
 
-    print("Peter's travel record")
+    print(f"{student.name}'s travel record:")
     for trip in student.trips:
         print(trip)
-
+        print(f" -> Estimated Fare: ${trip.line.calculate_fare(20):.2f}\n")
+    
     avg_time = TripStats.average_travel_time(student.trips)
     on_time = TripStats.on_time_ratio(student.trips)
     worst_trip = TripStats.most_delayed_trip(student.trips)
