@@ -2,15 +2,51 @@ from abc import ABC, abstractmethod
 from datetime import timedelta
 
 
-class TransportLine:
-    def __init__(self, name, transport_type, origin, destination, expected_time):
+class TransportLine(ABC):
+    def __init__(self, name, origin, destination, expected_time):
         self.name = name
-        self.transport_type = transport_type
         self.origin = origin
         self.destination = destination
         self.expected_time = expected_time
 
 
+    @abstractmethod
+    def get_transport_type(self):
+        pass
+        
+    @abstractmethod
+    def calculate_fare(self, distance):
+        pass
+
+class MTRLine(TransportLine):
+    def __init__(self, name, origin, destination, expected_time, _light_rail-False):
+        super(),__init__(name, origin, destination, expected_time_
+        self._light_rail = _light_fail
+
+    def get_transport_type(self):
+        return "Light Rail" if self._light_rail else "MTR"
+
+    def calucate_fare(self, distance):
+        return 5.0 + (distance * 1.2)
+
+class BusLine(TransportLine):
+    def __init__(self, name, origin, destination, expected_time, is_express=False):
+        super().__init__(name, origin, destnation, expected_time)
+        self.is_express = is_express
+
+    def get_transport_type(self):
+        return "Express Bus" if self.is_express else "Regular Bus"
+
+    def calculate_fare(self, distance):
+        return 21 if self.is_express else 8.0 + (distance *0.8)
+
+class MinibusLine(TransportLine):
+    def get_transport_type(self):
+        return "Minibus"
+
+    def calculate_fare(self, distance):
+        return 5.5
+        
 class Trip:
     def __init__(self, line, date, start_time):
         self.line = line
@@ -33,10 +69,8 @@ class Trip:
         return self.delay_minutes > threshold
 
     def __str__(self):
-        if self.delay_minutes > 0:
-            return f"{self.line.name} on {self.date.strftime('%Y-%m-%d')}: delayed by {self.delay_minutes} mins ({self.delay_reason})"
-        return f"{self.line.name} on {self.date.strftime('%Y-%m-%d')}: on time"
-
+        status =f"delayed by {self.delay_minutes} mins ({self.delay_reason})" if self.delay_minutes > 0 else "on time"
+        return f"[{self.line.get_transport_type()}] {self.line.name} on {self.date.strftime('%Y-%m-%d')} {status}"
 
 class User:
     def __init__(self, name, home, school):
