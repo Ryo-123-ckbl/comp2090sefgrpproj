@@ -1,10 +1,10 @@
 # Heap
 
 class MaxHeap:
-   def __init__(self, items=[]): 
-    self.data = list(items)
-    if len(self.data) > 0:
-        self.build_heap()
+    def __init__(self, items=[]): 
+        self.data = list(items)
+        if len(self.data) > 0:
+                self.build_heap()
 
     def __len__(self):
         return len(self.data)
@@ -24,25 +24,25 @@ class MaxHeap:
     def swap(self, i, j):
         self.data[i], self.data[j] = self.data[j], self.data[i]
 
-   def sift_down(self, i):
-    n = len(self.data) 
+    def sift_down(self, i):
+        n = len(self.data) 
     
-    while True:
-        largest = i
-        l = self.left(i)   
-        r = self.right(i)  
+        while True:
+            largest = i
+            l = self.left(i)   
+            r = self.right(i)  
 
-        if l < n and self.data[l] > self.data[largest]:
-            largest = l
+            if l < n and self.data[l] > self.data[largest]:
+                largest = l
             
-        if r < n and self.data[r] > self.data[largest]:
-            largest = r
+            if r < n and self.data[r] > self.data[largest]:
+                largest = r
 
-        if largest == i:
-            break
+            if largest == i:
+                break
 
-        self.swap(i, largest)
-        i = largest
+            self.swap(i, largest)
+            i = largest
  
     def sift_up(self, i):
        
@@ -98,7 +98,6 @@ class MaxHeap:
 
     def __str__(self):
         return f"MaxHeap({self.data})"
-
 
 if __name__ == "__main__":
     nums = [7, 1, 9, 3, 2, 8]
