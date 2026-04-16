@@ -1,13 +1,13 @@
 from datetime import datetime
-from models import TransportLine, Trip, User
+from models import TransportLine, Trip, User, MTRLine, BusLine, MinibusLine
 from data import TripStats
 
 def main():
     student = User("Peter", "Tuen Mun", "Kowloon Tong")
 
-    mtr_route = MTRLine("Tuen Mun Line", "MTR", "Tuen Mun", "Nam Cheong", 30)
-    bus_route = BusLine("960", "Bus", "Tuen Mun", "Admiralty", 50, is_express=True)
-    minibus_route = MinibusLine("44", "Minibus", "Tuen Mun", "Mei Foo", 40)
+    mtr_route = MTRLine("Tuen Mun Line", "Tuen Mun", "Nam Cheong", 30)
+    bus_route = BusLine("960", "Tuen Mun", "Admiralty", 50, is_express=True)
+    minibus_route = MinibusLine("44", "Tuen Mun", "Mei Foo", 40)
 
     today = datetime.now()
 
